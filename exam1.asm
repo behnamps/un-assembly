@@ -1,0 +1,31 @@
+INCLUDE IO.h
+STSG SEGMENT
+    DW 32 DUP(?)
+STSG ENDS
+
+DATSG SEGMENT
+    T DB 10 DUP(?)
+    A DW ?
+    B DW ? 
+    RESULT DB 6 DUP(?)
+DATSG ENDS
+
+CODSG SEGMENT
+    ASSUME CS:CODSG,DS:DATSG
+START:  MOV AX,DATSG
+        MOV DX,AX
+        INPUTS T,6
+        ATOI T
+        MOV  A,AX
+        INPUTS  T,6
+        ATOI  T
+        MOV  B,AX
+        MOV  AX,A
+        ADD  AX,B
+        MOV  RESULT,AX
+        ITOA RESULT
+        OUTPUT RESULT
+        MOV AX,4C00H
+        INT 21H
+CODSG ENDS
+END START
